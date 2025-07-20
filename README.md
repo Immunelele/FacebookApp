@@ -1,7 +1,8 @@
 
 # Facebook App
 
-Projekt polegał na stworzeniu aplikacji webowej w Java Spring Boot z wykorzystaniem Thymeleaf, która   umożliwia użytkownikom przesyłanie i analizowanie danych z konwersacji Facebooka w formacie JSON. Aplikacja pozwala na wgrywanie plików eksportowanych z Messenger Facebooka, które następnie są walidowane pod kątem formatu i struktury. Po przesłaniu pliku użytkownik ma dostęp do panelu z listą dostępnych konwersacji, zawierających podstawowe informacje takie jak nazwa pliku, liczba uczestników. Z widoku tego panelu możliwe jest też pobranie danych w PDF, wyświetlenie danych na stronie razem z wykresami oraz usunięcie pliku. Po kliknięciu na przycisk dane użytkownik ma możliwość wybrania typu danych który chce wyświetlić.
+The project involved creating a web application in Java Spring Boot using Thymeleaf, which enables users to upload and analyze Facebook conversation data in JSON format.
+The application allows users to upload files exported from Facebook Messenger, which are then validated for format and structure. After uploading a file, the user gains access to a panel with a list of available conversations, containing basic information such as the file name and the number of participants. From this panel view, it is also possible to download the data in PDF format, display the data on the page along with charts, or delete the file. Upon clicking the data button, the user can select the type of data they wish to display.
 
 
 ## Prerequisites
