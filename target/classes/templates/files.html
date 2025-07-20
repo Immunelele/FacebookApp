@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Facebook L </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <title>List of Files</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h1>Lista wgranych plików L</h1>
+</div>
+<div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
+</div>
+<div th:if="${not files.empty}">
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">Nazwa Pliku</th>
+            <th scope="col">Ilość uczestników</th>
+            <th scope="col">Dane</th>
+            <th scope="col">Pdf</th>
+            <th scope="col">Usuwanie</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="file : ${files}">
+            <td th:text="${file.name}">File name</td>
+            <td th:text="${participants.get(file.name)}"></td>
+            <td><a th:href="@{'/starter/files/messages/' + ${file.name}}" th:text="'Dane'">Dane</a></td>
+            <td><a th:href="@{'/starter/files/pdf/' + ${file.name}}" th:text="'Eksport'">Eksport</a></td>
+            <td>
+                <a th:href="@{'/starter/files/delete/' + ${file.name}}"
+                   th:fileName="${file.name}"
+                   class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${files.empty}">
+    <span>Nie znaleziono plików</span>
+</div>
+</body>
+</html>

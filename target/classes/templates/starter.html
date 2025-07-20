@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Facebook L</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <title>List of Files</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<div class="container">
+    <h1 class="text-center main-title">FacebookApp L</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-10 description-container">
+            <h2 class="text-center mb-4">Opis projektu</h2>
+            <p class="lead">
+                Projekt polegał na stworzeniu aplikacji webowej w Java Spring Boot z wykorzystaniem Thymeleaf, która
+                umożliwia użytkownikom przesyłanie i analizowanie danych z konwersacji Facebooka w formacie JSON.
+                Aplikacja pozwala na wgrywanie plików eksportowanych z Messenger Facebooka, które następnie są
+                walidowane pod kątem formatu i struktury. Po przesłaniu pliku użytkownik ma dostęp
+                do panelu z listą dostępnych konwersacji, zawierających podstawowe informacje takie jak nazwa pliku,
+                liczba uczestników. Z widoku tego panelu możliwe jest też pobranie danych w PDF, wyświetlenie danych na
+                stronie razem z wykresami oraz usunięcie pliku.
+                Po kliknięciu na przycisk dane użytkownik ma możliwość wybrania typu danych który chce wyświetlić.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

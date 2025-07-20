@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Facebook L </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <title>List of Files</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+            font-weight: 600;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .chart-selector {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .btn-chart {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-chart:hover {
+            background-color: #365899;
+            transform: translateY(-2px);
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h1>Wybierz dane do wyświetlenia</h1>
+</div>
+<div class="container-fluid" style="max-width: 800px; margin: 0 auto;">
+    <a th:href="@{/starter/files}"
+       class="btn btn-primary back-button">
+        <i class="fas fa-arrow-left"></i> Powrót
+    </a>
+    <div th:if="${not messages.empty}">
+        <div class="chart-selector">
+            <form th:action="@{/starter/files/messages/{fileName}/execute(fileName=${fileName})}" method="get"
+                  class="form-inline justify-content-center">
+                <div class="form-group mx-2 mb-2">
+                    <label>
+                        <select name="dataType" class="form-control form-control-lg">
+                            <option value="">Wybierz wykres</option>
+                            <option value="participants">Uczestnik</option>
+                            <option value="dWeek">Dzień Tygodnia</option>
+                            <option value="dMonth">Dzień Miesiąca</option>
+                            <option value="year">Roczne</option>
+                            <option value="months">Miesięczne</option>
+                            <option value="emotes">Emotki</option>
+                        </select>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-chart btn-lg mb-2">
+                    <i class="fas fa-chart-bar mr-2"></i>Pokaż wykres
+                </button>
+            </form>
+        </div>
+        <div class="stats-table">
+            <h3>Podsumowanie konwersacji</h3>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>Statystyka</th>
+                    <th>Wartość</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Całkowita liczba wiadomości</td>
+                    <td th:text="${totalMessageCount}"></td>
+                </tr>
+                <tr>
+                    <td>Łączna liczba słów</td>
+                    <td th:text="${wordsCount}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:if="${messages.empty}">
+        <div class="alert alert-warning">Nie znaleziono wiadomości</div>
+    </div>
+</div>
+</body>
+</html>

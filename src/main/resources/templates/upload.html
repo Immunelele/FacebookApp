@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Facebook Message Analyzer - Upload</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .upload-container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .upload-area {
+            border: 2px dashed #4267B2;
+            border-radius: 8px;
+            padding: 60px 20px;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .upload-area:hover {
+            background-color: #e9ecef;
+            border-color: #365899;
+        }
+        .upload-area i {
+            font-size: 48px;
+            color: #4267B2;
+            margin-bottom: 15px;
+        }
+        .upload-text {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #4267B2;
+            font-weight: 500;
+        }
+        .file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .upload-btn {
+            background-color: #4267B2;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .upload-btn:hover {
+            background-color: #365899;
+            transform: translateY(-2px);
+        }
+        .file-info {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h1 class="text-center my-4">Wgrywanie plików L</h1>
+</div>
+<div class="upload-container">
+    <form th:action="@{/starter/upload}" th:method="post" enctype="multipart/form-data">
+        <div class="upload-area">
+            <i class="fas fa-cloud-upload-alt"></i>
+            <div class="upload-text">Przeciągnij i upuść pliki tutaj</div>
+            <div class="file-info">lub kliknij, aby wybrać pliki (.json)</div>
+            <input type="file" class="file-input" id="files" name="files" multiple accept=".json"/>
+        </div>
+        <button type="submit" class="upload-btn">
+            <i class="fas fa-upload mr-2"></i>Prześlij pliki
+        </button>
+    </form>
+</div>
+</body>
+</html>
+
+

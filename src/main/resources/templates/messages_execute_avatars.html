@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Facebook L </title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <title>List of Files</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <style>
+        .table thead th {
+            border-bottom: 2px solid #dee2e6;
+            font-weight: 600;
+        }
+
+        .table tbody tr:hover {
+            background-color: rgba(0, 0, 0, 0.02);
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+<div class="container">
+    <h1>Statystki wybranej konwersacji</h1>
+</div>
+<div class="container-fluid" style="max-width: 800px; margin: 0 auto;">
+    <a th:href="@{/starter/files/messages/{fileName}(fileName=${fileName})}"
+       class="btn btn-primary back-button">
+        <i class="fas fa-arrow-left"></i> Powrót
+    </a>
+    <h3>Ilość wiadomości według wybranego wykresu</h3>
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Dane</th>
+            <th>Liczba wiadomości</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${participantDataMap}">
+            <td>
+                <img th:if="${entry.value.avatarBase64 != null}"
+                     th:src="'data:image/png;base64,' + ${entry.value.avatarBase64}"
+                     style="width: 32px; height: 32px; border-radius: 50%; margin-right: 10px;"/>
+                <span th:text="${entry.key}"></span>
+            </td>
+            <td th:text="${entry.value.messageCount}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3>Wizualizacja danych</h3>
+    <div id="dataChart" style="width: 100%; height: 400px; margin: 0 auto"></div>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartData = /*[[${participantDataMap}]]*/ {};
+            const dataType = /*[[${dataType}]]*/ '';
+            const chartSeries = Object.entries(chartData).map(([name, data]) => ({
+                name: name,
+                y: data.messageCount
+            }));
+            const chartType = dataType === 'emotes' ? 'pie' : 'column';
+
+            Highcharts.chart('dataChart', {
+                chart: {
+                    type: chartType,
+                    backgroundColor: 'transparent'
+                },
+                title: {
+                    text: getChartTitle(dataType),
+                    align: 'center'
+                },
+                xAxis: chartType === 'column' ? {
+                    type: 'category'
+                } : undefined,
+                tooltip: {
+                    pointFormat: '<b>{point.y}</b>'
+                },
+                plotOptions: {
+                    column: {
+                        colorByPoint: true
+                    },
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}</b>: {point.y}',
+                            distance: 20,
+                            style: {
+                                fontWeight: 'bold',
+                                color: 'black'
+                            }
+                        },
+                        showInLegend: true
+                    }
+                },
+                series: [{
+                    name: 'Ilość',
+                    data: chartSeries
+                }]
+            });
+
+            function getChartTitle(type) {
+                const titles = {
+                    'participants': 'Liczba wiadomości uczestników',
+                    'dWeek': 'Wiadomości według dnia tygodnia',
+                    'dMonth': 'Wiadomości według dnia miesiąca',
+                    'year': 'Wiadomości według roku',
+                    'months': 'Wiadomości według miesiąca',
+                    'emotes': 'Rozkład użytych emotek'
+                };
+                return titles[type] || 'Statystyki wiadomości';
+            }
+        });
+        /*]]>*/
+    </script>
+</div>
+</body>
+</html>
